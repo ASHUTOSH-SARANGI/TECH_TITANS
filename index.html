@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduConnect - College E-Learning Platform</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <!-- Login Page (Initially visible) -->
+    <div id="login-page" class="login-container">
+      <div class="login-banner">
+        <div class="login-banner-content shifted">
+          <h1>EduConnect</h1>
+          <p>
+            Welcome to your college's comprehensive e-learning platform. Access
+            course materials, submit assignments, and connect with faculty - all
+            in one place.
+          </p>
+          <div>
+            <button id="demo-student-btn" class="btn btn-outline">
+              Explore as Student
+            </button>
+            <button
+              id="demo-faculty-btn"
+              class="btn btn-outline"
+              style="margin-left: 10px"
+            >
+              Explore as Faculty
+            </button>
+            <button
+              id="demo-admin-btn"
+              class="btn btn-outline"
+              style="margin-left: 10px"
+            >
+              Explore as Admin
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="login-form-container hidden">
+        <div class="login-form">
+          <h2>Sign In</h2>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Enter your email"
+            />
+            <div class="form-text">Use your university email address</div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Enter your password"
+            />
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <div>
+              <input type="checkbox" id="remember" checked />
+              <label for="remember">Remember me</label>
+            </div>
+            <a
+              href="#"
+              id="forgot-password-link"
+              style="
+                color: var(--primary);
+                text-decoration: none;
+                font-size: 0.9rem;
+              "
+              >Forgot Password?</a
+            >
+          </div>
+          <button id="signInButton" class="btn btn-primary btn-block">
+            Sign In
+          </button>
+          <div
+            id="loginError"
+            style="color: var(--danger); margin-top: 10px; display: none"
+          ></div>
+          <div class="form-footer">
+            <p>
+              Don't have an account? <a href="#" id="signup-link">Sign up here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="signup-form-container" class="login-form-container hidden" style="z-index: 3;">
+      <div class="login-form">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email Address</label>
+          <input type="email" id="signup-email" class="form-control" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="signup-role">Role</label>
+          <select id="signup-role" class="form-control">
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" class="form-control" placeholder="Create a password">
+        </div>
+        <div class="form-group">
+          <label for="signup-confirm-password">Confirm Password</label>
+          <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password">
+        </div>
+        <button id="signUpButton" class="btn btn-primary btn-block">
+          Create Account
+        </button>
+        <div id="signupError" style="color: var(--danger); margin-top: 10px; display: none"></div>
+        <div class="form-footer">
+          <p>
+            Already have an account? <a href="#" id="login-link">Sign in here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Reset Modal -->
+    <div id="password-reset-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Reset Password</h3>
+        <p>Enter your email to receive a password reset link:</p>
+        <input type="email" id="resetEmail" class="form-control" placeholder="Your email" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button id="cancel-reset" class="btn btn-outline">Cancel</button>
+          <button id="send-reset" class="btn btn-primary">Send Link</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" style="display: none">
+      <div class="container">
+        <div class="sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-logo">EduConnect</div>
+            <div>Student Portal</div>
+          </div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="courses">
+                <i class="fas fa-book"></i> My Courses
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="assignments">
+                <i class="fas fa-tasks"></i> Assignments
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="grades">
+                <i class="fas fa-award"></i> Grades
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="calendar">
+                <i class="fas fa-calendar-alt"></i> Calendar
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="resources">
+                <i class="fas fa-search"></i> Resources
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="messages">
+                <i class="fas fa-envelope"></i> Messages
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="settings">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </li>
+          </ul>
+          <div class="sidebar-footer">
+            <button id="student-logout" class="btn btn-outline btn-sm">
+              Log Out
+            </button>
+          </div>
+        </div>
+        <div class="main-content">
+          <div class="header">
+            <h1>Student Dashboard</h1>
+            <div class="user-profile">
+              <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-count">3</span>
+              </div>
+              <div class="avatar" id="student-avatar">JD</div>
+              <div style="margin-left: 5px" id="student-name">John Doe</div>
+            </div>
+          </div>
+
+          <!-- Student Dashboard Content -->
+          <div id="student-tab-dashboard" class="student-tab-content">
+            <div class="dashboard-stats">
+              <div class="stat-card">
+                <div class="stat-title">Enrolled Courses</div>
+                <div class="stat-value" id="enrolled-courses-count">4</div>
+                <div class="stat-info">2 in progress, 2 upcoming</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Assignments</div>
+                <div class="stat-value" id="assignments-count">7</div>
+                <div class="stat-info">3 pending, 4 completed</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Average Grade</div>
+                <div class="stat-value" id="average-grade">A-</div>
+                <div class="stat-info">Up 5% from last semester</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Attendance</div>
+                <div class="stat-value" id="attendance-rate">92%</div>
+                <div class="stat-info">Last 30 days</div>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <div>
+                <div class="card">
+                  <h2>My Courses</h2>
+                  <ul class="course-list" id="dashboard-course-list">
+                    <!-- Course items will be loaded dynamically -->
+                  </ul>
+                </div>
+
+                <div class="card">
+                  <h2>Upcoming Deadlines</h2>
+                  <ul class="task-list" id="upcoming-deadlines">
+                    <!-- Task items will be loaded dynamically -->
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <div class="card">
+                  <h2>Notifications</h2>
+                  <ul class="notification-list" id="notification-list">
+                    <!-- Notification items will be loaded dynamically -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Courses Tab Content -->
+          <div id="student-tab-courses" class="student-tab-content" style="display: none;">
+            <div class="card">
+              <h2>My Courses</h2>
+              <div class="tabs">
+                <div class="tab active" data-courses-tab="all">All Courses</div>
+                <div class="tab" data-courses-tab="in-progress">In Progress</div>
+                <div class="tab" data-courses-tab="completed">Completed</div>
+              </div>
+              <div id="courses-tab-all" class="tab-content active">
+                <ul class="course-list" id="all-courses-list">
+                  <!-- Course items will be loaded dynamically -->
+                </ul>
+              </div>
+              <div id="courses-tab-in-progress" class="tab-content">
+                <ul class="course-list" id="in-progress-courses-list">
+                  <!-- In progress courses will be loaded dynamically -->
+                </ul>
+              </div>
+              <div id="courses-tab-completed" class="tab-content">
+                <ul class="course-list" id="completed-courses-list">
+                  <!-- Completed courses will be loaded dynamically -->
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assignments Tab Content -->
+          <div id="student-tab-assignments" class="student-tab-content" style="display: none;">
+            <div class="card">
+              <h2>Assignments</h2>
+              <div class="tabs">
+                <div class="tab active" data-assignments-tab="pending">Pending</div>
+                <div class="tab" data-assignments-tab="submitted">Submitted</div>
+                <div class="tab" data-assignments-tab="graded">Graded</div>
+              </div>
+              <div id="assignments-tab-pending" class="tab-content active">
+                <ul class="task-list" id="pending-assignments-list">
+                  <!-- Pending assignments will be loaded dynamically -->
+                </ul>
+              </div>
+              <div id="assignments-tab-submitted" class="tab-content">
+                <ul class="task-list" id="submitted-assignments-list">
+                  <!-- Submitted assignments will be loaded dynamically -->
+                </ul>
+              </div>
+              <div id="assignments-tab-graded" class="tab-content">
+                <ul class="task-list" id="graded-assignments-list">
+                  <!-- Graded assignments will be loaded dynamically -->
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other student tabs will be added here -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Faculty Dashboard -->
+    <div id="faculty-dashboard" style="display: none">
+      <div class="container">
+        <div class="sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-logo">EduConnect</div>
+            <div>Faculty Portal</div>
+          </div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="courses">
+                <i class="fas fa-book"></i> My Courses
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="assignments">
+                <i class="fas fa-tasks"></i> Assignments
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="students">
+                <i class="fas fa-user-graduate"></i> Students
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="grades">
+                <i class="fas fa-award"></i> Grades
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="calendar">
+                <i class="fas fa-calendar-alt"></i> Calendar
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="messages">
+                <i class="fas fa-envelope"></i> Messages
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="settings">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </li>
+          </ul>
+          <div class="sidebar-footer">
+            <button id="faculty-logout" class="btn btn-outline btn-sm">
+              Log Out
+            </button>
+          </div>
+        </div>
+        <div class="main-content">
+          <div class="header">
+            <h1>Faculty Dashboard</h1>
+            <div class="user-profile">
+              <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-count">2</span>
+              </div>
+              <div class="avatar" id="faculty-avatar">SJ</div>
+              <div style="margin-left: 5px" id="faculty-name">Sarah Johnson</div>
+            </div>
+          </div>
+
+          <!-- Faculty Dashboard Content -->
+          <div id="faculty-tab-dashboard" class="faculty-tab-content">
+            <div class="dashboard-stats">
+              <div class="stat-card">
+                <div class="stat-title">Active Courses</div>
+                <div class="stat-value" id="faculty-courses-count">3</div>
+                <div class="stat-info">2 in progress, 1 upcoming</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Students</div>
+                <div class="stat-value" id="faculty-students-count">87</div>
+                <div class="stat-info">Across all courses</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Pending Assignments</div>
+                <div class="stat-value" id="faculty-pending-assignments">12</div>
+                <div class="stat-info">To be graded</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Average Class Grade</div>
+                <div class="stat-value" id="faculty-avg-grade">B+</div>
+                <div class="stat-info">All courses</div>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <div>
+                <div class="card">
+                  <h2>My Courses</h2>
+                  <ul class="course-list" id="faculty-course-list">
+                    <!-- Faculty course items will be loaded dynamically -->
+                  </ul>
+                </div>
+
+                <div class="card">
+                  <h2>Recent Submissions</h2>
+                  <ul class="task-list" id="recent-submissions">
+                    <!-- Recent submissions will be loaded dynamically -->
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <div class="card">
+                  <h2>Notifications</h2>
+                  <ul class="notification-list" id="faculty-notification-list">
+                    <!-- Faculty notification items will be loaded dynamically -->
+                  </ul>
+                </div>
+                <div class="card">
+                  <h2>Quick Actions</h2>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn btn-primary" id="create-course-btn">
+                      <i class="fas fa-plus"></i> Create Course
+                    </button>
+                    <button class="btn btn-primary" id="create-assignment-btn">
+                      <i class="fas fa-tasks"></i> New Assignment
+                    </button>
+                    <button class="btn btn-primary" id="upload-materials-btn">
+                      <i class="fas fa-upload"></i> Upload Materials
+                    </button>
+                    <button class="btn btn-primary" id="send-announcement-btn">
+                      <i class="fas fa-bullhorn"></i> Announcement
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other faculty tabs will be added here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" style="display: none">
+      <div class="container">
+        <div class="sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-logo">EduConnect</div>
+            <div>Admin Portal</div>
+          </div>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="users">
+                <i class="fas fa-users"></i> User Management
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="courses">
+                <i class="fas fa-book"></i> Course Management
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="reports">
+                <i class="fas fa-chart-bar"></i> Reports
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="monitoring">
+                <i class="fas fa-desktop"></i> System Monitoring
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="announcements">
+                <i class="fas fa-bullhorn"></i> Announcements
+              </a>
+            </li>
+            <li>
+              <a href="#" data-tab="settings">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </li>
+          </ul>
+          <div class="sidebar-footer">
+            <button id="admin-logout" class="btn btn-outline btn-sm">
+              Log Out
+            </button>
+          </div>
+        </div>
+        <div class="main-content">
+          <div class="header">
+            <h1>Admin Dashboard</h1>
+            <div class="user-profile">
+              <div class="avatar" id="admin-avatar">AD</div>
+              <div style="margin-left: 5px" id="admin-name">Admin</div>
+            </div>
+          </div>
+
+          <!-- Admin Dashboard Content -->
+          <div id="admin-tab-dashboard" class="admin-tab-content">
+            <div class="dashboard-stats">
+              <div class="stat-card">
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value" id="total-users">152</div>
+                <div class="stat-info">Students: 120, Faculty: 32</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Active Courses</div>
+                <div class="stat-value" id="active-courses">24</div>
+                <div class="stat-info">Enrollments: 450</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">System Status</div>
+                <div class="stat-value">Online</div>
+                <div class="stat-info">Uptime: 99.9%</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Pending Requests</div>
+                <div class="stat-value" id="pending-requests">5</div>
+                <div class="stat-info">Support tickets: 3</div>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <div>
+                <div class="card">
+                  <h2>Recent Activities</h2>
+                  <ul class="notification-list" id="admin-activities">
+                    <!-- Admin activities will be loaded dynamically -->
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <div class="card">
+                  <h2>Quick Actions</h2>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn btn-primary" id="add-user-btn">
+                      <i class="fas fa-user-plus"></i> Add User
+                    </button>
+                    <button class="btn btn-primary" id="add-course-btn">
+                      <i class="fas fa-plus"></i> Add Course
+                    </button>
+                    <button class="btn btn-primary" id="system-backup-btn">
+                      <i class="fas fa-database"></i> System Backup
+                    </button>
+                    <button class="btn btn-primary" id="global-announcement-btn">
+                      <i class="fas fa-bullhorn"></i> Announcement
+                    </button>
+                  </div>
+                </div>
+                <div class="card">
+                  <h2>System Health</h2>
+                  <div style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                      <span>Server Load</span>
+                      <span>42%</span>
+                    </div>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 42%; background-color: var(--success);"></div>
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                      <span>Database Usage</span>
+                      <span>68%</span>
+                    </div>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 68%; background-color: var(--warning);"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                      <span>Storage</span>
+                      <span>35%</span>
+                    </div>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 35%; background-color: var(--success);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Management Tab -->
+          <div id="admin-tab-users" class="admin-tab-content" style="display: none;">
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>User Management</h2>
+                <button class="btn btn-primary" id="add-user-btn-tab">
+                  <i class="fas fa-user-plus"></i> Add New User
+                </button>
+              </div>
+              <div class="tabs">
+                <div class="tab active" data-users-tab="all">All Users</div>
+                <div class="tab" data-users-tab="students">Students</div>
+                <div class="tab" data-users-tab="faculty">Faculty</div>
+                <div class="tab" data-users-tab="admins">Admins</div>
+              </div>
+              <div id="users-tab-all" class="tab-content active">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="all-users-table">
+                    <!-- User data will be loaded dynamically -->
+                  </tbody>
+                </table>
+              </div>
+              <!-- Other user tabs will be added here -->
+            </div>
+          </div>
+
+          <!-- Other admin tabs will be added here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Course View Modal -->
+    <div id="course-view-modal" class="modal">
+      <div class="modal-content modal-lg">
+        <span class="close-modal">&times;</span>
+        <div id="course-view-content">
+          <!-- Course content will be loaded dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Assignment View Modal -->
+    <div id="assignment-view-modal" class="modal">
+      <div class="modal-content modal-lg">
+        <span class="close-modal">&times;</span>
+        <div id="assignment-view-content">
+          <!-- Assignment content will be loaded dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+  </body>
+</html>
+

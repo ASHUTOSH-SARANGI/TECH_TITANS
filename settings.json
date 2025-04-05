@@ -1,0 +1,20 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "educonnect",
+            "group": "tech",
+            "database": "e_learningdb",
+            "username": "root",
+            "password": "nigam!@#$123",
+            "connectionTimeout": 30
+        }
+    ]
+}
